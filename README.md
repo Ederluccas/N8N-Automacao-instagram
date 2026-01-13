@@ -20,18 +20,7 @@ Este projeto documenta a criação e configuração de uma infraestrutura de pro
 
 ---
 
-## 🌐 Acesso
 
-| Serviço | URL/Detalhes |
-|---------|-------------|
-| **n8n Dashboard** | https://n8ninstacianfa.dev |
-| **Usuário** | `admin` |
-| **Senha** | `tZN/@e2wcG8t9e?` |
-| **SSH** | `ssh n8n-droplet-new` (alias configurado) |
-| **IP Droplet** | 68.183.127.25 (temporário) |
-| **IP Reservado** | 167.172.3.140 (será reatribuído após 7 dias) |
-
----
 
 ## 🏗️ Arquitetura
 
@@ -156,60 +145,7 @@ Este projeto documenta a criação e configuração de uma infraestrutura de pro
 
 ---
 
-## 🔧 Comandos Úteis
 
-### Acessar o Servidor
-```bash
-# Via SSH (alias configurado)
-ssh n8n-droplet-new
-
-# Ou direto
-ssh -i ~/.ssh/digitalocean_n8n root@68.183.127.25
-```
-
-### Gerenciar Containers
-```bash
-# Entrar na pasta
-cd /root/n8n
-
-# Ver status
-docker-compose ps
-
-# Ver logs em tempo real
-docker-compose logs -f n8n
-docker-compose logs -f caddy
-
-# Reiniciar
-docker-compose restart
-
-# Parar
-docker-compose down
-
-# Iniciar
-docker-compose up -d
-```
-
-### Verificar Saúde
-```bash
-# Status do sistema
-uptime
-free -h
-df -h
-
-# Verificar conectividade HTTPS
-curl -I https://n8ninstacianfa.dev
-
-# Verificar certificado SSL
-echo | openssl s_client -servername n8ninstacianfa.dev -connect n8ninstacianfa.dev:443 2>/dev/null | openssl x509 -noout -dates
-```
-
-### Backup Manual
-```bash
-# Fazer backup do volume n8n_data
-docker run --rm -v n8n_data:/data -v $(pwd):/backup alpine tar czf /backup/n8n_backup_$(date +%Y%m%d_%H%M%S).tar.gz /data
-```
-
----
 
 ## 🔐 Segurança
 
@@ -284,19 +220,7 @@ start README.html  # Windows
 ### Acesso
 - **n8n Dashboard:** https://n8ninstacianfa.dev
 - **DigitalOcean Console:** https://cloud.digitalocean.com/droplets
-- **UptimeRobot Dashboard:** https://uptimerobot.com
-
-### Ferramentas
-- **DigitalOcean CLI:** `doctl` (para gerenciamento via terminal)
-- **SSH Config:** `~/.ssh/config` (configuração de atalhos)
-
----
-
-## 📝 Notas Importantes
-
-### Backup de Segurança
-Sempre faça backup antes de grandes mudanças:
-```bash
+bash
 docker run --rm -v n8n_data:/data -v $(pwd):/backup alpine tar czf /backup/n8n_backup.tar.gz /data
 ```
 
@@ -319,22 +243,7 @@ docker-compose logs caddy | grep "certificate"
 ssh -vvv n8n-droplet-new  # verbose output
 
 # Volume de dados perdido?
-# Restaurar do backup automático via DigitalOcean dashboard
-```
 
----
-
-## 👨‍💻 Stack Tecnológico
-
-- **Containerização:** Docker + Docker Compose
-- **Reverse Proxy:** Caddy 2
-- **SSL/TLS:** Let's Encrypt (Automático)
-- **Monitoramento:** UptimeRobot + Email
-- **Backup:** DigitalOcean Snapshots
-- **DNS:** DigitalOcean DNS
-- **IaC:** docker-compose.yml (git versioned)
-
----
 
 ## 📄 Licença
 
