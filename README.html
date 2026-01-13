@@ -444,21 +444,51 @@
             
             <!-- Arquitetura -->
             <section>
-                <h2>🏗️ Arquitetura</h2>
-                <div class="code-block">
-n8ninstacianfa.dev (HTTPS)
-        ↓
-    Caddy (Port 80/443)
-    Reverse Proxy + SSL
-        ↓
-    n8n Container (Port 5678)
-    Automação de Workflows
-        ↓
-    SQLite Database (Local)
-    Persistência /home/node/.n8n
-        ↓
-    Backup Automático (DigitalOcean)
-    Snapshots Diários
+                <h2>🏗️ Arquitetura do Sistema</h2>
+                <p style="color: #666; margin-bottom: 30px;">A infraestrutura foi construída em camadas, garantindo segurança, confiabilidade e escalabilidade:</p>
+                
+                <div style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); padding: 40px; border-radius: 15px; margin: 20px 0;">
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <div style="display: inline-block; background: white; padding: 20px 30px; border-radius: 10px; margin: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); font-weight: bold; color: #667eea;">
+                            🌐 HTTPS Pública
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; font-size: 2em; color: #667eea; margin: 15px 0;">↓</div>
+                    
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <div style="display: inline-block; background: white; padding: 20px 30px; border-radius: 10px; margin: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); font-weight: bold; color: #667eea;">
+                            🔒 Caddy Reverse Proxy
+                        </div>
+                        <p style="color: #555; font-size: 0.9em; margin-top: 8px;">Gerencia HTTPS, redireciona HTTP, renova certificados</p>
+                    </div>
+                    
+                    <div style="text-align: center; font-size: 2em; color: #667eea; margin: 15px 0;">↓</div>
+                    
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <div style="display: inline-block; background: white; padding: 20px 30px; border-radius: 10px; margin: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); font-weight: bold; color: #667eea;">
+                            🚀 n8n Container
+                        </div>
+                        <p style="color: #555; font-size: 0.9em; margin-top: 8px;">Aplicação de automação de workflows isolada</p>
+                    </div>
+                    
+                    <div style="text-align: center; font-size: 2em; color: #667eea; margin: 15px 0;">↓</div>
+                    
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <div style="display: inline-block; background: white; padding: 20px 30px; border-radius: 10px; margin: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); font-weight: bold; color: #667eea;">
+                            💾 SQLite Database
+                        </div>
+                        <p style="color: #555; font-size: 0.9em; margin-top: 8px;">Armazenamento persistente de workflows e dados</p>
+                    </div>
+                    
+                    <div style="text-align: center; font-size: 2em; color: #667eea; margin: 15px 0;">↓</div>
+                    
+                    <div style="text-align: center;">
+                        <div style="display: inline-block; background: white; padding: 20px 30px; border-radius: 10px; margin: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); font-weight: bold; color: #667eea;">
+                            🔄 Backups Automáticos
+                        </div>
+                        <p style="color: #555; font-size: 0.9em; margin-top: 8px;">Snapshots diários para recuperação de emergência</p>
+                    </div>
                 </div>
             </section>
             
@@ -537,32 +567,22 @@ n8ninstacianfa.dev (HTTPS)
             <!-- Informações Técnicas -->
             <section>
                 <h2>🔧 Informações Técnicas</h2>
-                <h3 style="color: #333; margin-top: 20px; margin-bottom: 15px;">Credenciais de Acesso</h3>
-                <div class="code-block">
-URL: https://n8ninstacianfa.dev
-Usuário: admin
-Senha: tZN/@e2wcG8t9e?
-
-SSH: ssh -i ~/.ssh/digitalocean_n8n root@68.183.127.25
-Alias: ssh n8n-droplet-new
+                <h3 style="color: #333; margin-top: 20px; margin-bottom: 15px;">Informações de Acesso</h3>
+                <div style="background: #f0f4ff; padding: 20px; border-radius: 10px; border-left: 4px solid #667eea; margin: 20px 0;">
+                    <p><strong>Autenticação:</strong> Usuário admin com senha segura</p>
+                    <p style="margin-top: 10px;"><strong>Acesso:</strong> Via HTTPS com certificado Let's Encrypt</p>
+                    <p style="margin-top: 10px;"><strong>SSH:</strong> Ed25519 key authentication (sem senhas)</p>
                 </div>
                 
-                <h3 style="color: #333; margin-top: 30px; margin-bottom: 15px;">Verificação de Saúde</h3>
-                <div class="code-block">
-# Status dos containers
-docker-compose ps
-
-# Logs do n8n
-docker-compose logs -f n8n
-
-# Logs do Caddy
-docker-compose logs -f caddy
-
-# Verificar uptime
-uptime
+                <h3 style="color: #333; margin-top: 30px; margin-bottom: 15px;">Monitoramento de Saúde</h3>
+                <div style="background: #f0f4ff; padding: 20px; border-radius: 10px; border-left: 4px solid #667eea; margin: 20px 0;">
+                    <p><strong>Container Status:</strong> Verificação automática via Docker</p>
+                    <p style="margin-top: 10px;"><strong>Logs:</strong> Rastreamento em tempo real via Docker Compose</p>
+                    <p style="margin-top: 10px;"><strong>Sistema:</strong> Monitoramento de uptime via UptimeRobot</p>
+                    <p style="margin-top: 10px;"><strong>Alertas:</strong> Notificações por email quando anomalias detectadas</p>
                 </div>
                 
-                <h3 style="color: #333; margin-top: 30px; margin-bottom: 15px;">Links Importantes</h3>
+                <h3 style="color: #333; margin-top: 30px; margin-bottom: 15px;">Recursos Disponíveis</h3>
                 <div class="specs">
                     <div class="spec-card">
                         <h4>📱 Acesso</h4>
@@ -575,17 +595,17 @@ uptime
                         <h4>☁️ Gerenciamento</h4>
                         <ul>
                             <li><a href="https://cloud.digitalocean.com" style="color: white; text-decoration: underline;">DigitalOcean Console</a></li>
-                            <li><a href="https://supabase.com/dashboard" style="color: white; text-decoration: underline;">Supabase (Futuro)</a></li>
+                            <liPlataformas</h4>
+                        <ul>
+                            <li>Dashboard n8n (HTTPS)</li>
+                            <li>Monitoramento UptimeRobot</li>
                         </ul>
                     </div>
-                </div>
-            </section>
-            
-            <!-- Resumo -->
-            <section>
-                <h2>✨ Resumo do Projeto</h2>
-                <p style="font-size: 1.1em; color: #333; line-height: 1.8;">
-                    O n8n foi <strong>migrado com sucesso</strong> para uma infraestrutura de produção robusta e escalável. 
+                    <div class="spec-card">
+                        <h4>☁️ Infraestrutura</h4>
+                        <ul>
+                            <li>DigitalOcean Cloud Console</li>
+                            <li>Supabase (Futuro)
                     O novo servidor está <strong>100% operacional</strong> com:
                 </p>
                 <ul style="list-style: none; margin: 20px 0; padding: 0;">
@@ -613,10 +633,11 @@ uptime
             </section>
             
             <section style="border-top: 2px solid #e0e0e0; padding-top: 40px;">
-                <div class="button-group">
-                    <a href="https://n8ninstacianfa.dev" class="btn btn-primary">🚀 Acessar n8n</a>
-                    <a href="https://cloud.digitalocean.com/droplets" class="btn btn-secondary">📊 DigitalOcean</a>
-                    <a href="https://uptimerobot.com" class="btn btn-secondary">📈 UptimeRobot</a>
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px; border-radius: 15px; text-align: center;">
+                    <h3 style="color: white; margin-bottom: 15px;">✨ Infraestrutura Pronta para Produção</h3>
+                    <p style="font-size: 1.1em; line-height: 1.8;">
+                        O sistema está operacional 24/7 com redundância, backups automáticos e monitoramento contínuo. Pronto para crescer conforme suas necessidades.
+                    </p>
                 </div>
             </section>
         </div>
