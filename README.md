@@ -20,8 +20,6 @@ Este projeto documenta a criação e configuração de uma infraestrutura de pro
 
 ---
 
-
-
 ## 🏗️ Arquitetura
 
 ```
@@ -48,14 +46,14 @@ Este projeto documenta a criação e configuração de uma infraestrutura de pro
 │   Volumes Docker Persistentes           │
 │   • /home/node/.n8n (workflows)         │
 │   • n8n_data (backup automático)        │
-└─────────────────────────────────────────┘
+└──────────────┬──────────────────────────┘
                ↓
 ┌─────────────────────────────────────────┐
 │   DigitalOcean Backups Automáticos      │
 │   • Snapshot diário do droplet          │
 │   • Retenção: 7 dias                    │
 │   • Recuperação em minutos              │
-└─────────────────────────────────────────┘
+└──────────────┬──────────────────────────┘
                ↓
 ┌─────────────────────────────────────────┐
 │   UptimeRobot Monitoramento 24/7        │
@@ -130,7 +128,7 @@ Este projeto documenta a criação e configuração de uma infraestrutura de pro
 - [ ] Monitorar UptimeRobot por 7 dias (deve estar 100% UP)
 - [ ] Verificar alertas de email diariamente
 - [ ] Testar workflows críticos
-- [ ] Validar logs do n8n (/root/n8n/docker-compose logs)
+- [ ] Validar logs do n8n
 - [ ] Confirmar backups automáticos funcionando
 - [ ] Manter droplet antigo (167.172.3.140) como fallback
 
@@ -144,8 +142,6 @@ Este projeto documenta a criação e configuração de uma infraestrutura de pro
 - [ ] Destruir droplet antigo (libera ~$2/mês)
 
 ---
-
-
 
 ## 🔐 Segurança
 
@@ -166,18 +162,6 @@ Este projeto documenta a criação e configuração de uma infraestrutura de pro
 - **Intervalo:** 5 minutos
 - **Alertas:** Email quando algum monitor ficar DOWN
 - **Histórico:** 24h/7d/30d disponível no dashboard
-
-### Logs do Servidor
-```bash
-# Verificar logs do n8n
-docker-compose logs --tail 100 n8n
-
-# Verificar logs do Caddy
-docker-compose logs --tail 100 caddy
-
-# Logs do sistema
-journalctl -u docker -n 50
-```
 
 ---
 
@@ -206,52 +190,14 @@ journalctl -u docker -n 50
 
 Veja **README.html** para uma visualização interativa e moderna desta documentação!
 
-```bash
-# Abrir no navegador
-open README.html  # macOS
-xdg-open README.html  # Linux
-start README.html  # Windows
-```
-
 ---
 
-## 🔗 Links Importantes
+## 👨‍💻 Stack Tecnológico
 
-### Acesso
-- **n8n Dashboard:** https://n8ninstacianfa.dev
-- **DigitalOcean Console:** https://cloud.digitalocean.com/droplets
-bash
-docker run --rm -v n8n_data:/data -v $(pwd):/backup alpine tar czf /backup/n8n_backup.tar.gz /data
-```
-
-### Escalabilidade Futura
-Para crescimento, considere:
-- Upgrade de RAM (2GB → 4GB)
-- Database externa (PostgreSQL em Supabase)
-- Load balancer se múltiplos n8n
-- Kubernetes (se muitos containers)
-
-### Troubleshooting Comum
-```bash
-# n8n lento ou travado?
-docker-compose restart n8n
-
-# Certificado SSL expirado?
-docker-compose logs caddy | grep "certificate"
-
-# Sem conexão ao servidor?
-ssh -vvv n8n-droplet-new  # verbose output
-
-# Volume de dados perdido?
-
-
-## 📄 Licença
-
-Este projeto documenta uma infraestrutura de produção para n8n.
-
----
-
-**Última Atualização:** 13 de Janeiro de 2026  
-**Status:** ✅ Operacional  
-**Uptime:** 24/7 com Monitoramento  
-**Suporte:** Backups automáticos + Redundância planejada
+- **Containerização:** Docker + Docker Compose
+- **Reverse Proxy:** Caddy 2
+- **SSL/TLS:** Let's Encrypt (Automático)
+- **Monitoramento:** UptimeRobot + Email
+- **Backup:** DigitalOcean Snapshots
+- **DNS:** DigitalOcean DNS
+- **IaC:** docker-compose.yml (git versioned)
